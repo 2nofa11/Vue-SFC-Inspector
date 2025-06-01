@@ -9,15 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### 🎉 新機能
 
-- changelogenを追加 ([8f9c62a](https://github.com/2nofa11/Vue-SFC-Inspector/commit/8f9c62a))
-
-### 🔨 その他
-
-- README.mdを新規作成 ([dbcabfa](https://github.com/2nofa11/Vue-SFC-Inspector/commit/dbcabfa))
-- 新規プロジェクトの初期設定を追加 ([dc411ef](https://github.com/2nofa11/Vue-SFC-Inspector/commit/dc411ef))
-- .gitignoreにeslint-typegen.d.tsを追加 ([06f8fe3](https://github.com/2nofa11/Vue-SFC-Inspector/commit/06f8fe3))
-- .gitignoreにdistフォルダを追加 ([a0ab690](https://github.com/2nofa11/Vue-SFC-Inspector/commit/a0ab690))
-- バージョン番号を1.0.0から0.0.0に変更 ([352eb31](https://github.com/2nofa11/Vue-SFC-Inspector/commit/352eb31))
+- **Initial release of vue-sfc-inspector** - CLI tool to analyze Vue SFC script setup adoption with comprehensive features ([1af186c](https://github.com/2nofa11/Vue-SFC-Inspector/commit/1af186c))
+  - Vue SFCコンポーネントのAPIスタイル（Options API、Composition API、Script Setup）を分析
+  - ディレクトリの再帰的スキャン機能
+  - 詳細な統計レポートの生成
+  - 進捗バー表示によるUX向上
+  - 包括的なテストカバレッジ
+  - TypeScriptフルサポート
+  - ESLint設定
+  - Vitestによるテスト環境
+  - Unbuildによるビルド設定
+  - Changelogenによるチェンジログ管理
 
 ### ❤️ Contributors
 
