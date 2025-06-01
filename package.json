@@ -3,6 +3,31 @@
   "type": "module",
   "version": "0.0.1",
   "description": "Analyze Vue SFC script setup adoption",
+  "author": {
+    "name": "2nofa11",
+    "email": "agsh0505@gmail.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/2nofa11/Vue-SFC-Inspector#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/2nofa11/Vue-SFC-Inspector.git"
+  },
+  "bugs": {
+    "url": "https://github.com/2nofa11/Vue-SFC-Inspector/issues"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "sfc",
+    "single-file-component",
+    "script-setup",
+    "composition-api",
+    "options-api",
+    "analyzer",
+    "cli",
+    "developer-tools"
+  ],
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -28,7 +53,8 @@
     "release": "changelogen --release --push",
     "release:minor": "changelogen --release --minor --push",
     "release:major": "changelogen --release --major --push",
-    "release:patch": "changelogen --release --patch --push"
+    "release:patch": "changelogen --release --patch --push",
+    "prepublishOnly": "npm run build && npm run test"
   },
   "dependencies": {
     "@vue/compiler-sfc": "^3.5.16",
@@ -53,5 +79,9 @@
     "unbuild": "^3.5.0",
     "vitest": "^3.1.4",
     "vue": "^3.5.16"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }

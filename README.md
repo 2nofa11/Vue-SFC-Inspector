@@ -1,40 +1,74 @@
 # Vue SFC Inspector
 
-Vue Single File Component (SFC) の `<script setup>` 採用状況を解析するCLIツール
+<div align="center">
 
-## 概要
+[日本語](./README.ja.md) | English
 
-Vue SFC Inspector は、プロジェクト内の Vue SFC ファイルを走査し、以下の分類で統計を表示します：
+</div>
 
-- **`<script setup>`**: Vue 3.2+ の Composition API シンタックスシュガー
-- **Composition API (setup() in `<script>`)**: 従来の `setup()` 関数を使用
-- **Options API**: Vue 2 スタイルの Options API
+A CLI tool to analyze Vue Single File Component (SFC) `<script setup>` adoption
 
-## インストール
+## Overview
+
+Vue SFC Inspector scans Vue SFC files in your project and provides statistics in the following categories:
+
+- **`<script setup>`**: Vue 3.2+ Composition API syntactic sugar
+- **Composition API (setup() in `<script>`)**: Traditional `setup()` function usage
+- **Options API**: Vue 2 style Options API
+
+## Quick Start
 
 ```bash
-npm install vue-sfc-inspector
+npx vue-sfc-inspector
 ```
 
-## 使用方法
+## Installation
 
-### CLI コマンド
+### Global Installation (Optional)
 
 ```bash
-# カレントディレクトリを解析
+# npm
+npm install -g vue-sfc-inspector
+
+# yarn
+yarn global add vue-sfc-inspector
+
+# pnpm
+pnpm add -g vue-sfc-inspector
+```
+
+### Local Installation
+
+```bash
+# npm
+npm install --save-dev vue-sfc-inspector
+
+# yarn
+yarn add -D vue-sfc-inspector
+
+# pnpm
+pnpm add -D vue-sfc-inspector
+```
+
+## Usage
+
+### CLI Commands
+
+```bash
+# Analyze current directory
 npx vue-sfc-inspector
 
-# 特定のディレクトリを解析
+# Analyze specific directory
 npx vue-sfc-inspector ./src
 
-# プロジェクトルートを解析
+# Analyze project root
 npx vue-sfc-inspector .
 
-# 詳細表示（ファイル一覧付き）
+# Show details with file list
 npx vue-sfc-inspector ./src --details
 ```
 
-### 出力例
+### Example Output
 
 ```
 ◐ Analyzing Vue SFC files...
@@ -61,9 +95,9 @@ npx vue-sfc-inspector ./src --details
 📝 <script setup> (2) 28.6%  🔧 Composition API (4) 57.1%  ⚙️ Options API (1) 14.3%
 ```
 
-### 詳細表示オプション
+### Details Option
 
-`--details` または `-d` フラグを使用すると、各カテゴリのファイル一覧も表示されます：
+Use the `--details` or `-d` flag to display file lists for each category:
 
 ```bash
 npx vue-sfc-inspector ./src --details
@@ -88,7 +122,7 @@ npx vue-sfc-inspector ./src --details
 ℹ     • ./src/components/LegacyComponent.vue
 ```
 
-## プログラマティック API
+## Programmatic API
 
 ```typescript
 import { classifyVueFiles } from 'vue-sfc-inspector'
@@ -101,11 +135,11 @@ console.log(result)
 //   compositionAPI: 4,
 //   optionsAPI: 1,
 //   total: 7,
-//   withSetup: 2,        // 後方互換性
-//   withoutSetup: 5      // 後方互換性
+//   withSetup: 2,        // for backward compatibility
+//   withoutSetup: 5      // for backward compatibility
 // }
 
-// 詳細情報付きで取得
+// Get detailed information
 const detailedResult = await classifyVueFiles('./src', { includeDetails: true })
 console.log(detailedResult.files)
 // [
@@ -115,18 +149,18 @@ console.log(detailedResult.files)
 // ]
 ```
 
-### 型定義
+### Type Definitions
 
 ```typescript
 interface ScanResult {
-  // 詳細分類
-  scriptSetup: number      // <script setup> の件数
-  compositionAPI: number   // setup() 関数使用の件数
-  optionsAPI: number       // Options API の件数
-  total: number           // 総ファイル数
+  // Detailed classification
+  scriptSetup: number      // Count of <script setup>
+  compositionAPI: number   // Count of setup() function usage
+  optionsAPI: number       // Count of Options API
+  total: number           // Total file count
   
-  // 後方互換性
-  withSetup: number       // scriptSetup と同じ
+  // Backward compatibility
+  withSetup: number       // Same as scriptSetup
   withoutSetup: number    // compositionAPI + optionsAPI
 }
 
@@ -140,105 +174,109 @@ interface FileClassification {
 }
 ```
 
-## 判定ロジック
+## Classification Logic
 
-### `<script setup>` の判定
-- `@vue/compiler-sfc` の `descriptor.scriptSetup` プロパティの存在
+### `<script setup>` Detection
+- Presence of `descriptor.scriptSetup` property from `@vue/compiler-sfc`
 
-### Composition API の判定
-- `setup()` 関数の存在
-- `defineComponent()` の使用（TypeScript での型サポート目的も含む）
-- Composition API 関数のインポート (`ref`, `reactive`, `computed`, `watch`, `onMounted` など)
+### Composition API Detection
+- Presence of `setup()` function
+- Usage of `defineComponent()` (including TypeScript type support)
+- Import of Composition API functions (`ref`, `reactive`, `computed`, `watch`, `onMounted`, etc.)
 
-### Options API の判定
-- 上記に該当しない `<script>` ブロック
+### Options API Detection
+- `<script>` blocks that don't match the above criteria
 
-## 特徴
+## Features
 
-### 🎨 美しい視覚的出力
-- GitHubスタイルのセグメント化されたプログレスバー
-- 色分けされた統計表示
-- エモジとアイコンによる直感的な表示
+### 🎨 Beautiful Visual Output
+- GitHub-style segmented progress bars
+- Color-coded statistics
+- Intuitive emoji and icon indicators
 
-### 📊 詳細な分析
-- 3つのカテゴリでの正確な分類
-- ファイル単位での詳細情報
-- TypeScript プロジェクトにも対応
+### 📊 Detailed Analysis
+- Accurate classification into 3 categories
+- Per-file detailed information
+- TypeScript project support
 
-### ⚡ 高速処理
-- `fast-glob` による高速ファイル検索
-- 大規模プロジェクトでも効率的な処理
+### ⚡ High Performance
+- Fast file searching with `fast-glob`
+- Efficient processing for large projects
 
-### 🔧 開発者フレンドリー
-- 直感的なCLIインターフェース
-- プログラマティックAPI
-- TypeScript 型定義完備
+### 🔧 Developer Friendly
+- Intuitive CLI interface
+- Programmatic API
+- Complete TypeScript type definitions
 
-## 技術スタック
+## Tech Stack
 
-- **[@vue/compiler-sfc](https://github.com/vuejs/core/tree/main/packages/compiler-sfc)** - Vue SFC パーサー
-- **[fast-glob](https://github.com/mrmlnc/fast-glob)** - 高速ファイル検索
-- **[consola](https://github.com/unjs/consola)** - エレガントなコンソール出力
-- **[citty](https://github.com/unjs/citty)** - CLI フレームワーク
-- **[unbuild](https://github.com/unjs/unbuild)** - ユニバーサルビルドツール
+- **[@vue/compiler-sfc](https://github.com/vuejs/core/tree/main/packages/compiler-sfc)** - Vue SFC parser
+- **[fast-glob](https://github.com/mrmlnc/fast-glob)** - Fast file searching
+- **[consola](https://github.com/unjs/consola)** - Elegant console output
+- **[citty](https://github.com/unjs/citty)** - CLI framework
+- **[unbuild](https://github.com/unjs/unbuild)** - Universal build tool
 
-## 開発
+## Development
 
-### セットアップ
+### Setup
 
 ```bash
-# 依存関係のインストール
+# Install dependencies
 npm install
 
-# 開発モードで実行
+# Run in development mode
 npm run dev
 
-# ビルド
+# Build
 npm run build
 
-# テスト実行
+# Run tests
 npm test
 
-# リンティング
+# Lint
 npm run lint
 ```
 
-### テスト
+### Testing
 
 ```bash
-# 全テスト実行
+# Run all tests
 npm test
 
-# ウォッチモード
+# Watch mode
 npm run test:watch
 
-# カバレッジ付き
+# With coverage
 npm run test:coverage
 ```
 
-### プロジェクト構造
+### Project Structure
 
 ```
 src/
-├── cli.ts                          # CLI エントリーポイント
-├── core.ts                         # コア解析ロジック
-├── index.ts                        # API エクスポート
-├── cli.test.ts                     # CLI テスト
-├── core.test.ts                    # コア機能テスト
+├── cli.ts                          # CLI entry point
+├── core.ts                         # Core analysis logic
+├── index.ts                        # API exports
+├── cli.test.ts                     # CLI tests
+├── core.test.ts                    # Core functionality tests
 └── utils/
-    ├── segmented-progress-bar.ts   # プログレスバーユーティリティ
-    └── segmented-progress-bar.test.ts # プログレスバーテスト
+    ├── segmented-progress-bar.ts   # Progress bar utility
+    └── segmented-progress-bar.test.ts # Progress bar tests
 
-fixtures/                           # テスト用フィクスチャ
-├── setup.vue                       # <script setup> サンプル
-├── composition.vue                 # Composition API サンプル
-├── options.vue                     # Options API サンプル
-├── empty-define-component.vue      # defineComponent({}) サンプル
+fixtures/                           # Test fixtures
+├── setup.vue                       # <script setup> sample
+├── composition.vue                 # Composition API sample
+├── options.vue                     # Options API sample
+├── empty-define-component.vue      # defineComponent({}) sample
 └── ...
 ```
 
-## 関連リンク
+## Related Links
 
-- [Vue.js 公式ドキュメント - `<script setup>`](https://vuejs.org/api/sfc-script-setup.html)
-- [Vue.js 公式ドキュメント - Composition API](https://vuejs.org/guide/extras/composition-api-faq.html)
-- [Vue.js 公式ドキュメント - Single File Components](https://vuejs.org/guide/scaling-up/sfc.html)
+- [Vue.js Official Documentation - `<script setup>`](https://vuejs.org/api/sfc-script-setup.html)
+- [Vue.js Official Documentation - Composition API](https://vuejs.org/guide/extras/composition-api-faq.html)
+- [Vue.js Official Documentation - Single File Components](https://vuejs.org/guide/scaling-up/sfc.html)
+
+## License
+
+MIT License © 2025 2nofa11
