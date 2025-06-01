@@ -3,11 +3,14 @@ import { defineBuildConfig } from 'unbuild'
 export default defineBuildConfig({
   entries: [
     'src/index',
-    'src/cli',
+    {
+      input: 'src/cli',
+      name: 'cli', 
+    },
   ],
   declaration: true,
   clean: true,
   rollup: {
-    emitCJS: true,
+    emitCJS: false,
   },
 })
