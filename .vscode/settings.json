@@ -1,0 +1,12 @@
+{
+  "conventionalCommits.scopes": [
+    "cli",
+    "parser",
+    "analyzer",
+    "deps",
+    "config",
+    "test"
+  ],
+  "conventionalCommits.lineBreak": "\n",
+  "conventionalCommits.showNewVersionNotes": false
+}

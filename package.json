@@ -1,0 +1,57 @@
+{
+  "name": "vue-sfc-inspector",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Analyze Vue SFC script setup adoption",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "vue-sfc-inspector": "./dist/cli.mjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "tsx src/cli.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "npm run lint && vitest",
+    "test:watch": "vitest --watch",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "changelog": "changelogen",
+    "changelog:minor": "changelogen --minor",
+    "changelog:major": "changelogen --major",
+    "changelog:patch": "changelogen --patch",
+    "release": "changelogen --release --push",
+    "release:minor": "changelogen --release --minor --push",
+    "release:major": "changelogen --release --major --push",
+    "release:patch": "changelogen --release --patch --push"
+  },
+  "dependencies": {
+    "@vue/compiler-sfc": "^3.5.16",
+    "citty": "^0.1.6",
+    "consola": "^3.4.2",
+    "eslint-typegen": "^2.2.0",
+    "fast-glob": "^3.3.3"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^4.13.2",
+    "@types/node": "^22.15.29",
+    "@vitejs/plugin-vue": "^5.2.4",
+    "@vitest/coverage-v8": "^3.1.4",
+    "@vitest/eslint-plugin": "^1.2.1",
+    "@vitest/ui": "^3.1.4",
+    "@vue/test-utils": "^2.4.6",
+    "changelogen": "^0.6.1",
+    "eslint": "^9.28.0",
+    "jsdom": "^26.1.0",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "unbuild": "^3.5.0",
+    "vitest": "^3.1.4",
+    "vue": "^3.5.16"
+  }
+}
